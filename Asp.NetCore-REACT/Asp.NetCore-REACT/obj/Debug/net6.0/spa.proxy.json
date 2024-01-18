@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44485",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\49172\\source\\TestRepos\\Asp.NetCore-REACT\\Asp.NetCore-REACT\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}
