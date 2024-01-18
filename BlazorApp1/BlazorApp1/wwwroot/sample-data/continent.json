@@ -1,0 +1,27 @@
+﻿[
+  {
+    "Id": "1",
+    "Name": "Africa"
+  },
+  {
+    "Id": "2",
+    "Name": "Asia"
+  },
+  {
+      "Id": "3",
+    "Name": "Europe"
+  },
+  {
+    "Id": "4",
+    "Name": "North America"
+  },
+  {
+    "Id": "5",
+    "Name": "South America"
+  },
+
+  {
+    "Id": "6",
+    "Name": "Oceania"
+  }
+]

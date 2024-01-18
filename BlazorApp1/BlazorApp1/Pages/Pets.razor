@@ -1,0 +1,62 @@
+﻿@page "/pets"
+@inject HttpClient Http
+<h3>Pets</h3>
+@if (entries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>API</th>
+                <th>Description</th>
+                <th>Auth</th>
+                <th>HTTPS</th>
+                <th>Link</th>
+                <th>Cors</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in entries)
+            {
+                k++;
+                <tr>
+                    <td>@k</td>
+                    <td>@item.API</td>
+                    <td>@item.Description</td>
+                    <td>@item.Auth</td>
+                    <td>@item.HTTPS</td>
+                    <td><a href="@item.Link">@item.Link</a></td>
+                    <td>@item.Cors</td>
+                    <td>@item.Category</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private Entries[]? entries;
+    private int k = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        entries = await Http.GetFromJsonAsync<Entries[]>("sample-data/test.json");
+    }
+
+    class Entries
+    {
+        public string? API{ set; get; }
+        public string? Description{ set; get; }
+        public string? Auth{ set; get; }
+        public bool? HTTPS { set; get; }
+        public string? Link { set; get; }
+        public string? Cors { set; get; }
+        public string? Category { set; get; }
+    }
+}

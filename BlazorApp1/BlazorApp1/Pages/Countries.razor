@@ -1,0 +1,57 @@
+﻿@page "/countries"
+@inject HttpClient Http
+
+<PageTitle>Countries</PageTitle>
+
+<h1>Countries</h1>
+
+<p>This component shows World Countries</p>
+
+@if (countries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Continent</th>
+                <th>Capital</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var country in countries)
+            {
+                <tr>
+                    <td>@country.Id</td>
+                    <td>@country.Name</td>
+                    <td>@country.Continent</td>
+                    <td>@country.Capital</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Country[]? countries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await Http.GetFromJsonAsync<Country[]>("sample-data/country.json");
+    }
+
+    public class Country
+    {
+        public int Id { get; set; }
+
+        public string? Name { get; set; }
+
+        public string? Continent { get; set; }
+
+        public string? Capital{ set; get; }
+    }
+}

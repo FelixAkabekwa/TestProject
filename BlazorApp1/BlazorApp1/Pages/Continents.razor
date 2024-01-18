@@ -1,0 +1,50 @@
+﻿@page "/continents"
+@inject HttpClient Http
+
+<PageTitle>Continents</PageTitle>
+
+<h1>Continents</h1>
+
+<p>This component shows World Continents</p>
+
+@if (conts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var continent in conts)
+            {
+                <tr>
+                    <td>@continent.Id</td>
+                    <td>@continent.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Continent[]? conts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        conts = await Http.GetFromJsonAsync<Continent[]>("sample-data/continent.json");
+    }
+
+    public class Continent
+    {
+        public int Id { get; set; }
+
+        public string? Name { get; set; }
+
+    }
+}

@@ -1,0 +1,114 @@
+﻿@page "/world"
+@inject HttpClient Http
+
+<PageTitle>Continents</PageTitle>
+
+<h1>World</h1>
+
+<p>This component shows World Continents</p>
+
+@if (ww == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Flag</th>
+                <th>Coat of Arm</th>
+                <th>Capital</th>
+                <th>Population</th>
+                <th>Continent</th>
+                <th>Map</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var country in ww.OrderBy(a=>a.name.Common))
+            {
+                <tr>
+                    <td>@country.name.Common</td>
+                    <td>
+                        <img src="@country.flags.png" width="30" height="30"/>
+                    </td>
+                    <td>
+                        @if (country.coatOfArms!=null&& country.coatOfArms.png!=null)
+                        {
+                            <img src="@country.coatOfArms.png" width="30" height="30"/>
+                        }
+                    </td>
+                    <td>@if (country.capital != null)
+                        {
+                            @country.capital.ElementAt(0)
+                        }
+                    </td>
+                    <td>@country.population</td>
+                    <td>@country.continents.ElementAt(0)</td>
+                    <td><a href="@country.maps.googleMaps">map</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Worlds[]? ww;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ww = await Http.GetFromJsonAsync<Worlds[]>("sample-data/world.json");
+    }
+
+    public class Worlds
+    {
+        public string? cca3{ get; set; }
+        public string? cioc{ get; set; }
+
+        public string? cca2 { get; set; }
+        public string? Status { get; set; }
+        public bool unMember{ set; get; }
+        public string? region{ set; get; }
+        public float area{ set; get; }
+        public int population{ set; get; }
+        //public string? demonyms{ set; get; }
+        public List<string> altSpellings{ get; set; }
+        public List<string> continents{ get; set; }
+        //public List<Array> maps{ get; set; }
+        public name? name{ get; set; }
+        public List<string> capital{ set; get; }
+        public maps? maps{ set; get; }
+        public flags? flags{ set; get; }
+        public coatOfArms? coatOfArms{ set; get; }
+
+
+    }
+
+    public class name
+    {
+        public string? Common{ get; set; }
+        public string? official{ get; set; }
+
+    }
+
+    public class maps
+    {
+        public string? googleMaps{ set; get; }
+        public string? openStreetMaps{ set; get; }
+    }
+
+    public class flags
+    {
+        public string? png{ set; get; }
+        public string? svg{ set; get; }
+
+    }
+
+    public class coatOfArms
+    {
+        public string? png{ set; get; }
+        public string? svg{ set; get; }
+
+    }
+}

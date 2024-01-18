@@ -1,0 +1,32 @@
+﻿[
+  {
+    "Id": "1",
+    "Name": "Liberia",
+    "Continent": "Africa",
+    "Capital": "Monrovia"
+  },
+  {
+    "Id": "2",
+    "Name": "Germany",
+    "Continent": "Europe",
+    "Capital": "Berlin"
+  },
+  {
+      "Id": "1",
+    "Name": "Liberia",
+    "Continent": "Africa",
+    "Capital": "Monrovia"
+  },
+  {
+    "Id": "3",
+    "Name": "Nigeria",
+    "Continent": "Africa",
+    "Capital": "Abuja"
+  },
+  {
+    "Id": "4",
+    "Name": "Italy",
+    "Continent": "Europe",
+    "Capital": "Rome"
+  }
+]

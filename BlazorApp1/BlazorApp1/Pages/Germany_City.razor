@@ -1,0 +1,77 @@
+﻿@page "/germany_city"
+@inject HttpClient Http
+
+<h3>German Cities</h3>
+<button onclick="SS">TestButton</button>
+
+@if (cities == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th @onclick="Soss">Name</th>
+                <th>DisplayName</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var city in cities)
+            {
+                k++;
+                <tr>
+                    <td>@k</td>
+                    <td>@city.name</td>
+                    <td>@city.display_name</td>
+                    <td>@city.address?.city</td>
+                    <td>@city.address?.state</td>
+                    <td>@city.address?.country</td>
+                    <td>@city.address?.country_code</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    private city[]? cities;
+    private int k = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        cities = await Http.GetFromJsonAsync<city[]>("sample-data/germany_city.json");
+    }
+    public void Soss()
+    {
+        cities?.OrderBy(c=>c.address?.state);
+    }
+
+    public class city
+    {
+        public string? name { set; get; }
+        public string? display_name { set; get; }
+        public int population{ set; get; }
+        public address? address { set; get; }
+    }
+
+    public class address
+    {
+        public string? city { set; get; }
+        public string? state { set; get; }
+        public string? country { set; get; }
+        public string? country_code { set; get; }
+
+    }
+
+
+}
+

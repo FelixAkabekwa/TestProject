@@ -1,0 +1,74 @@
+﻿@page "/germany"
+@inject HttpClient Http
+
+<h3>Germany</h3>
+
+
+@if (villages == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                 <th>Name</th>
+                 <th>DisplayName</th>
+                <th>Village</th>
+                <th>County</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var village in villages)
+            {
+                k++;
+                <tr>
+                    <td>@k</td>
+                     <td>@village.name</td>
+                     <td>@village.display_name</td>
+                    <td>@village.address?.village</td>
+                    <td>@village.address?.county</td>
+                    <td>@village.address?.state</td>
+                    <td>@village.address?.country</td>
+                    <td>@village.address?.country_code</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    private village[]? villages;
+    private int k = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        villages = await Http.GetFromJsonAsync<village[]>("sample-data/germany_village.json");
+    }
+
+    public  class village
+    {
+        public string? name{ set; get; }
+        public string? display_name { set; get; }
+        public address? address{ set; get; }
+    }
+
+    public class address
+    {
+        public string? village { set; get; }
+        public string? county { set; get; }
+        public string? state { set; get; }
+        public string? country { set; get; }
+        public string? country_code { set; get; }
+
+    }
+
+
+}
